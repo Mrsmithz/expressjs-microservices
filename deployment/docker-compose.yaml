@@ -1,0 +1,37 @@
+services:
+
+  nginx-service:
+    container_name: nginx
+    build:
+      context: ../nginx/
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - n1
+
+  auth-service:
+    container_name: auth-service
+    build:
+      context: ../auth/
+    restart: always
+    env_file:
+      - services/auth/.env
+    networks:
+      - n1
+
+  user-service:
+    container_name: user-service
+    build:
+      context: ../user/
+    restart: always
+    env_file:
+      - services/user/.env
+    networks:
+      - n1
+
+
+networks:
+  n1:
+    external: true
+
