@@ -17,12 +17,13 @@ authRoute.post('/register', async (req, res, next) => {
     }
 })
 
-userRoute.get('/user', async (req, res, next) => {
+userRoute.get('/check-auth', async (req, res, next) => {
     if (req.user){
-        res.status(200).send(req.user)
+        res.setHeader('userId', req.user._id)
+        res.sendStatus(204)
     }
     else{
-        res.sendStatus(400)
+        res.sendStatus(401)
     }
 })
 
